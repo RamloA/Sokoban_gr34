@@ -21,13 +21,14 @@ TURN_SPEED = 80
 mA.run_direct()
 mB.run_direct()
 
-lightSensorRight.color()
-lightSensorLeft.color()
+lightSensorRight.mode = 'COL-COLOR'
+lightSensorLeft.mode = 'COL-COLOR'
+lightSensorFront.mode = 'REFLECT'
 
 def forward():
     while True:
-        sensorLeft = lightSensorLeft.MODE_COL_COLOR
-        sensorRight = lightSensorRight.MODE_COL_COLOR
+        sensorLeft = lightSensorLeft.color
+        sensorRight = lightSensorRight.color
 
         if sensorLeft == 6 and sensorRight == 6:
             mA.duty_cycle_sp = BASE_SPEED
@@ -60,15 +61,38 @@ def reverse():
 
 def sensor_read():
     while True:
-        us_readings = US.distance_centimeters_continuous
-        sensorFront = lightSensorFront.Reflect
+        #us_readings = US.distance_centimeters_continuous
+        sensorFront = lightSensorFront.value()
 
-        print("Ultrasound    " + US_readings)
+        #print("Ultrasound    " + US_readings)
         print("SensorFront   " + sensorFront)
 
 
 
 
+def forwardSF():
+    while True:
+        sensorFront = lightSensorFront.value()
+        sensorLeft = lightSensorLeft.color
+        sensorRight = lightSensorRight.color
 
+        if sensorLeft == 6 and sensorRight == 6:
+            mA.duty_cycle_sp = BASE_SPEED
+            mB.duty_cycle_sp = BASE_SPEED
+        elif sensorFront > 300  and sensorFront < 400:
+            mA.duty_cycle_sp = 0
+            mB.duty_cycle_sp = 0
+            break
+
+
+
+
+
+
+while true:
+   sensorLeft = lightSensorLeft.color
+   sensorRight = lightSensorRight.color
+   if (sensorLeft==1 and sensorRight==1):
+      reverse();
 
 
