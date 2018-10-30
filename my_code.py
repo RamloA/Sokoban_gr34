@@ -91,13 +91,3 @@ def forwardSF():
 
 
 
-
-
-
-while true:
-   sensorLeft = lightSensorLeft.color
-   sensorRight = lightSensorRight.color
-   if (sensorLeft==1 and sensorRight==1):
-      reverse();
-
-
