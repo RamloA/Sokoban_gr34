@@ -141,6 +141,53 @@ def right_Turn():
             break
 
 
+def forward_Calibration_RLI():
+    while True:
+        sensorFront = lightSensorFront.reflected_light_intensity
+        sensorLeft = lightSensorLeft.reflected_light_intensity
+        sensorRight = lightSensorRight.reflected_light_intensity
+        diff_W_B = White - sensorFront
+        threshold_R = white_color1 - sensorRight
+        threshold_L = white_color2 - sensorLeft
+        threshold_v = 5
+        if sensorLeft == sensorRight < threshold_v:
+            mB.duty_cycle_sp = BASE_SPEED
+            mA.duty_cycle_sp = BASE_SPEED
+
+        # One sensor_L sees black and Right sees white
+        if threshold_L > threshold_v and threshold_R < threshold_v:
+            mA.duty_cycle_sp = CalI_TURN_SPEED
+            mB.duty_cycle_sp = CALI_SPEED
+
+        # Vice vers
+        if threshold_L < threshold_v and sensorRight > threshold_v:
+            mB.duty_cycle_sp = CalI_TURN_SPEED
+            mA.duty_cycle_sp = CALI_SPEED
+        # Stop when black
+        if diff_W_B > threshold_v:
+            mB.duty_cycle_sp = 0
+            mA.duty_cycle_sp = 0
+            break
+
+
+def right_Turn_RLI():
+    forward_Calibration()
+    while True:
+        sensorFront = lightSensorFront.reflected_light_intensity
+        sensorLeft = lightSensorLeft.reflected_light_intensity
+        sensorRight = lightSensorRight.reflected_light_intensity
+        diff_W_B = White - sensorFront
+        threshold_R = white_color1 - sensorRight
+        threshold_L = white_color2 - sensorLeft
+        threshold_v = 5
+        if diff_W_B < threshold_v:
+            mB.duty_cycle_sp = TURN_SPEED
+            mA.duty_cycle_sp = BASE_TURN_SPEED
+        if diff_W_B < threshold_v and sensorLeft == sensorRight < threshold_v:
+            mB.duty_cycle_sp = 0
+            mA.duty_cycle_sp = 0
+            break
+
 
 
 
