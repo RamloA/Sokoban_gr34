@@ -119,6 +119,7 @@ def forward_Calibration():
         if sensorLeft == 6 and sensorRight == 1:
             mB.duty_cycle_sp = CalI_TURN_SPEED
             mA.duty_cycle_sp = CALI_SPEED
+
         if sensorFront < 50:
             mB.duty_cycle_sp = 0
             mA.duty_cycle_sp = 0
@@ -131,16 +132,16 @@ def right_Turn():
         sensorFront = lightSensorFront.reflected_light_intensity
         sensorLeft = lightSensorLeft.color
         sensorRight = lightSensorRight.color
-
-        if sensorFront < 50:
+        if sensorFront > 50:
             mB.duty_cycle_sp = TURN_SPEED
-            mB.duty_cycle_sp = BASE_TURN_SPEED
+            mA.duty_cycle_sp = BASE_TURN_SPEED
+        if sensorFront > 50 and sensorLeft == sensorRight == 6:
+            mB.duty_cycle_sp = 0
+            mA.duty_cycle_sp = 0
+            break
 
-        if sensorLeft ==
 
-        if sensorLeft == sensorRight == 1:
-            mB.duty_cycle_sp = BASE_SPEED
-            mA.duty_cycle_sp = BASE_SPEED
-        if sensorLeft == 6 and sensorRight == 6:
-            forward_Calibration()
+
+
+
 
