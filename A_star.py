@@ -5,12 +5,11 @@ class Nodes:
         self.nodes = []
     """
     def __init__(self):
-            self.nodes = np.empty([1, 1])
-            self.width = self.nodes.shape[0]
-            self.height = self.nodes.shape[1]
-            #self.walls = []
+            self.nodes = np.empty([8,7])
 
     def in_bounds(self, id):
+            #self.rows = self.nodes.shape[0]
+            #self.cols = self.nodes.shape[1]
             (x, y) = id
             return 0 <= x < self.width and 0 <= y < self.height
 
@@ -20,28 +19,21 @@ class Nodes:
         M: should be the the array of the map 
         """""
         (x, y) = index
+        results = []
         neighbours_res = [(x-1, y), (x, y-1), (x+1, y), (x, y+1)]
+        """
+        for neigbour in neighbours_res:
+            if self.nodes[neigbour] == 1 or self.nodes[neigbour] == 2:
+                results.put(neigbour)
+        #neighbours_res = filter(self.in_bounds, neighbours_res)
+        """
         return neighbours_res
 
 
+    def heuristics(self, a, b):
+        (x1, y1) = a
+        ()
 
-
-class SimpleGraph:
-    def __init__(self):
-        self.edges = {}
-
-    def neighbors(self, id):
-        return self.edges[id]
-
-
-example_graph = SimpleGraph()
-example_graph.edges = {
-    'A': ['B'],
-    'B': ['A', 'C', 'D'],
-    'C': ['A'],
-    'D': ['E', 'A'],
-    'E': ['B']
-}
 
 
 
