@@ -4,7 +4,7 @@
 import ev3dev.ev3 as ev3
 import signal
 import numpy as np
-
+from implementation import *
 
 # Connect two motors and color and light sensors
 mA = ev3.LargeMotor('outA')
@@ -33,7 +33,7 @@ lightSensorRight.mode = 'COL-COLOR'
 lightSensorLeft.mode = 'COL-COLOR'
 lightSensorFront.mode = 'REFLECT'
 
-map = np.array([[0, 0, 0, 0, 0, 0, 0], [0, 1, 1, 1, 2, 1, 0], [0, 1, 1, 1, 1, 1, 0], [0, 2, 1, 2, 1, 2, 0],
+A_map = np.array([[0, 0, 0, 0, 0, 0, 0], [0, 1, 1, 1, 2, 1, 0], [0, 1, 1, 1, 1, 1, 0], [0, 2, 1, 2, 1, 2, 0],
                [0, 1, 1, 0, 1, 0, 0], [0, 1, 3, 2, 1, 1, 0], [0, 0, 0, 1, 3, 1, 0], [0, 0, 0, 1, 0, 1, 0],
                [0, 1, 3, 3, 1, 1, 0], [0, 1, 3, 9, 1, 1, 0], [0, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0]])
 
