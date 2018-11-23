@@ -59,7 +59,7 @@ def a_star(plan, start, goal):
 
         if current == goal:
             break
-        """"
+
         for next_node in plan.neighbours(current):
             if plan.nodes[next_node] == 1 or plan.nodes[next_node] == 2:
                 new_cost = cost[current] + cost_neighbours
@@ -69,17 +69,19 @@ def a_star(plan, start, goal):
                     priority = new_cost + heuristics(current, goal)
                     open_List.put(next_node, priority)
                     Visited[next_node] = current
-                    
-        """""
-        for next_node in plan.neighbours(current):
-            for next_next in plan.neighbours(next_node):
-                if plan.nodes[next_next] == 1 or plan.nodes[next_next] == 2:
-                    new_cost = cost[current] + cost_neighbours
-                    if next_next not in cost or new_cost < cost[next_next]:
-                        cost[next_next] = new_cost
-                        priority = new_cost + heuristics(current, goal)
-                        open_List.put(next_next, priority)
-                        Visited[next_next] = current
     return Visited, cost
+
+def solve(plan, cans, goals):
+    i=0
+    while i < len(cans):
+        if plan.nodes[cans[i]] == 3:
+            print("search:  ", cans[i])
+            vis, cost = a_star(plan, cans[i], goals[i])
+            i += 1
+            print("Visit: ", vis)
+            print("cost_   ", cost)
+    #return  vis, cost
+
+
 
 
