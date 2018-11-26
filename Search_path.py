@@ -30,22 +30,22 @@ print(A_map.neighbours(index))
 
 print("HER:   ", A_map.nodes[1, 1])
 
-Goals =[ (3, 1), (1, 1), (3, 3), (3, 5)]
+Goals =[(3, 1), (1, 1), (3, 3), (3, 5)]
 
 Cans = [(5, 2), (6, 2), (8, 2), (8, 4)]
 Robot = (8, 5)
 
-print("element 1 i cans: ", Cans[1])
+#print("element 1 i cans: ", Cans[1])
 
-print(type(Cans[1]))
+#print(type(Cans[1]))
 
-print("element 1: ", A_map.nodes[Cans[1]])
-#solve(A_map, Cans, Goals)
+#rint("element 1: ", A_map.nodes[Cans[1]])
+solve(A_map, Cans, Goals)
 
 Start, Goal = (5, 2), (3, 1)
 
 
-Vis, cost = a_star(A_map, Start, Goal)
+#Vis, cost = a_star(A_map, Start, Goal)
 
 print("Visited: ", Vis)
 print(cost)

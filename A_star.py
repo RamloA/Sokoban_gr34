@@ -53,9 +53,10 @@ def a_star(plan, start, goal):
     Visited[start] = 0
     cost[start] = 0
     cost_neighbours = 1
-
+    closed_list = []
     while not open_List.empty():
         current = open_List.get()
+        closed_list.append(current)
 
         if current == goal:
             break
@@ -63,12 +64,12 @@ def a_star(plan, start, goal):
         for next_node in plan.neighbours(current):
             if plan.nodes[next_node] == 1 or plan.nodes[next_node] == 2:
                 new_cost = cost[current] + cost_neighbours
-
-                if next_node not in cost or new_cost < cost[next_node]:
+                if next_node not in closed_list or new_cost < cost[next_node]:
                     cost[next_node] = new_cost
-                    priority = new_cost + heuristics(current, goal)
+                    priority = new_cost + heuristics(next_node, goal)
                     open_List.put(next_node, priority)
                     Visited[next_node] = current
+                    #print("Closed: ", closed_list)
     return Visited, cost
 
 def solve(plan, cans, goals):
