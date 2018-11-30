@@ -3,8 +3,7 @@
 
 import ev3dev.ev3 as ev3
 import signal
-import numpy as np
-from implementation import *
+#from implementation import *
 
 # Connect two motors and color and light sensors
 mA = ev3.LargeMotor('outA')
