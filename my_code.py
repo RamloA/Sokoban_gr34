@@ -35,13 +35,10 @@ lightSensorFront.mode = 'REFLECT'
 
 
 White = lightSensorFront.reflected_light_intensity
-white_color1=lightSensorRight.reflected_light_intensity
+white_color1 = lightSensorRight.reflected_light_intensity
 
-white_color2=lightSensorLeft.reflected_light_intensity
+white_color2 = lightSensorLeft.reflected_light_intensity
 
-A_map = np.array([[0, 0, 0, 0, 0, 0, 0], [0, 1, 1, 1, 2, 1, 0], [0, 1, 1, 1, 1, 1, 0], [0, 2, 1, 2, 1, 2, 0],
-               [0, 1, 1, 0, 1, 0, 0], [0, 1, 3, 2, 1, 1, 0], [0, 0, 0, 1, 3, 1, 0], [0, 0, 0, 1, 0, 1, 0],
-               [0, 1, 3, 3, 1, 1, 0], [0, 1, 3, 9, 1, 1, 0], [0, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0]])
 
 def forward():
     while True:
