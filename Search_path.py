@@ -53,7 +53,7 @@ Robot = (8, 5)
 #print(type(Cans[1]))
 
 #rint("element 1: ", A_map.nodes[Cans[1]])
-Find_solution(A_map, Cans, Goals)
+Find_solution(A_map, Cans, Goals, Robot)
 
 Start, Goal = (5, 2), (3, 1)
 
