@@ -1,10 +1,11 @@
 from A_star import *
 import numpy as np
+import matplotlib.pyplot as plt
+import cv2
+
+
 
 A_map = Nodes()
-End = Nodes()
-#A_map = [1, 1, 1, 1]
-
 
 A_map.nodes = np.array([[0, 0, 0, 0, 0, 0, 0],
                         [0, 2, 1, 1, 1, 1, 0],
@@ -19,18 +20,37 @@ A_map.nodes = np.array([[0, 0, 0, 0, 0, 0, 0],
                         [0, 1, 1, 1, 0, 0, 0],
                         [0, 0, 0, 0, 0, 0, 0]])
 
-End.nodes = np.array([[0, 0, 0, 0, 0, 0, 0],
-                        [0, 3, 1, 1, 1, 1, 0],
-                        [0, 1, 1, 1, 1, 1, 0],
-                        [0, 3, 0, 3, 1, 3, 0],
-                        [0, 0, 0, 0, 1, 0, 0],
-                        [0, 1, 1, 1, 1, 1, 0],
-                        [0, 1, 1, 1, 1, 1, 0],
-                        [0, 1, 1, 0, 0, 0, 0],
-                        [0, 1, 1, 1, 1, 1, 0],
-                        [0, 1, 1, 1, 1, 1, 0],
-                        [0, 1, 1, 1, 0, 0, 0],
-                        [0, 0, 0, 0, 0, 0, 0]])
+"""
+B_map = np.array([[0, 0, 0, 0, 0, 0, 0],
+                  [0, 2, 1, 1, 1, 1, 0],
+                  [0, 1, 1, 1, 1, 1, 0],
+                  [0, 2, 0, 2, 1, 2, 0],
+                  [0, 0, 0, 0, 1, 0, 0],
+                  [0, 1, 3, 1, 1, 1, 0],
+                  [0, 1, 3, 1, 1, 1, 0],
+                  [0, 1, 1, 0, 0, 0, 0],
+                  [0, 1, 3, 1, 3, 1, 0],
+                  [0, 1, 1, 1, 1, 1, 0],
+                  [0, 1, 1, 1, 0, 0, 0],
+                  [0, 0, 0, 0, 0, 0, 0]])
+for (x,y), value in np.ndenumerate(B_map):
+    #print(x, y)
+    if B_map[x, y] == 2:
+        B_map[x, y] = 200
+        print("2")
+    if B_map[x, y] == 3:
+        print("3")
+        B_map[x, y] = 30
+    if B_map[x, y] == 1:
+        print("1")
+        B_map[x, y] = 100
+
+print(B_map)
+cv2.imshow("Simple_black", B_map)
+cv2.resizeWindow("Simple_black", 1000, 1000)
+cv2.waitKey(0)
+"""
+
 
 print(A_map.nodes.shape)
 
@@ -38,7 +58,7 @@ print(A_map.nodes.shape)
 """
 #ALLE INDEX skal skrives med ()
 """
-index = (1,1)
+index = (1, 1)
 print(A_map.neighbours(index))
 
 print("HER:   ", A_map.nodes[1, 1])
