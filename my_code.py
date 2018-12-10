@@ -3,8 +3,7 @@
 
 import ev3dev.ev3 as ev3
 import signal
-import numpy as np
-from implementation import *
+
 
 # Connect two motors and color and light sensors
 mA = ev3.LargeMotor('outA')
@@ -21,7 +20,7 @@ print(lightSensorRight.connected)
 print(lightSensorFront.connected)
 
 BASE_SPEED = 60
-TURN_SPEED = 80
+TURN_SPEED = 30
 BASE_TURN_SPEED = 30
 CalI_TURN_SPEED = 50
 CALI_SPEED = 15
@@ -137,7 +136,7 @@ def right_Turn():
         sensorRight = lightSensorRight.color
         if sensorFront > 50:
             mB.duty_cycle_sp = TURN_SPEED
-            mA.duty_cycle_sp = BASE_TURN_SPEED
+            mA.duty_cycle_sp = -TURN_SPEED
         if sensorFront > 50 and sensorLeft == sensorRight == 6:
             mB.duty_cycle_sp = 0
             mA.duty_cycle_sp = 0
@@ -152,7 +151,7 @@ def forward_Calibration_RLI():
         diff_W_B = White - sensorFront
         threshold_R = white_color1 - sensorRight
         threshold_L = white_color2 - sensorLeft
-        threshold_v = 5
+        threshold_v = 10
         if sensorLeft == sensorRight < threshold_v:
             mB.duty_cycle_sp = BASE_SPEED
             mA.duty_cycle_sp = BASE_SPEED
@@ -162,7 +161,7 @@ def forward_Calibration_RLI():
             mA.duty_cycle_sp = CalI_TURN_SPEED
             mB.duty_cycle_sp = CALI_SPEED
 
-        # Vice vers
+         #Vice vers
         if threshold_L < threshold_v and sensorRight > threshold_v:
             mB.duty_cycle_sp = CalI_TURN_SPEED
             mA.duty_cycle_sp = CALI_SPEED
@@ -174,7 +173,7 @@ def forward_Calibration_RLI():
 
 
 def right_Turn_RLI():
-    forward_Calibration()
+
     while True:
         sensorFront = lightSensorFront.reflected_light_intensity
         sensorLeft = lightSensorLeft.reflected_light_intensity
@@ -182,16 +181,67 @@ def right_Turn_RLI():
         diff_W_B = White - sensorFront
         threshold_R = white_color1 - sensorRight
         threshold_L = white_color2 - sensorLeft
-        threshold_v = 5
-        if diff_W_B < threshold_v:
-            mB.duty_cycle_sp = TURN_SPEED
-            mA.duty_cycle_sp = BASE_TURN_SPEED
-        if diff_W_B < threshold_v and sensorLeft == sensorRight < threshold_v:
+        threshold_v = 15
+        if diff_W_B > threshold_v:
+            mB.run_to_rel_pos(position_sp=98, speed_sp=350)
+            mA.run_to_rel_pos(position_sp=-98, speed_sp=350)
+
+        if sensorRight >= 60 and sensorLeft >= 13 and sensorFront > 56:
+            mB.run_to_rel_pos(position_sp=98, speed_sp=350)
+            mA.run_to_rel_pos(position_sp=98, speed_sp=350)
+
+        if sensorRight >= 60 and sensorLeft >= 60 and sensorFront > 56:
+            mB.run_to_rel_pos(position_sp=98, speed_sp=350)
+            mA.run_to_rel_pos(position_sp=98, speed_sp=350)
+
+
+       # print("sensorFront: ", sensorFront)
+       # print("sensorLeft: ", sensorLeft)
+       # print("sensorRight: ", sensorRight)
+       # print("diff_W_B: ", diff_W_B)
+       # print("white1: ", white_color1)
+       # print("white2: ", white_color2)
+
+        if sensorLeft == sensorRight < threshold_v:
             mB.duty_cycle_sp = 0
             mA.duty_cycle_sp = 0
+
             break
 
+def right_Turn_Con():
 
+    while True:
+        sensorFront = lightSensorFront.reflected_light_intensity
+        sensorLeft = lightSensorLeft.reflected_light_intensity
+        sensorRight = lightSensorRight.reflected_light_intensity
+        diff_W_B = White - sensorFront
+        threshold_R = white_color1 - sensorRight
+        threshold_L = white_color2 - sensorLeft
+        threshold_v = 10
 
+        if sensorLeft < sensorRight or sensorLeft == sensorRight < threshold_v:
+            mB.duty_cycle_sp = BASE_SPEED
+            mA.duty_cycle_sp = BASE_SPEED
+
+        # One sensor_L sees black and Right sees white
+        if threshold_L > threshold_v and threshold_R < threshold_v:
+            mA.duty_cycle_sp = CalI_TURN_SPEED
+            mB.duty_cycle_sp = CALI_SPEED
+
+         #Vice vers
+        if threshold_L < threshold_v and sensorRight > threshold_v:
+            mB.duty_cycle_sp = CalI_TURN_SPEED
+            mA.duty_cycle_sp = CALI_SPEED
+        # Stop when black
+        if diff_W_B > threshold_v:
+            mB.duty_cycle_sp = 0
+            mA.duty_cycle_sp = 0
+
+            break
+
+forward_Calibration_RLI()
+right_Turn_RLI()
+forward_Calibration_RLI()
+right_Turn_RLI()
 
 
