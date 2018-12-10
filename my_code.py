@@ -2,12 +2,9 @@
 #!/usr/bin/env python
 
 import ev3dev.ev3 as ev3
-import signal
-<<<<<<< HEAD
 
-=======
 #from implementation import *
->>>>>>> origin/master
+
 
 # Connect two motors and color and light sensors
 mA = ev3.LargeMotor('outA')
