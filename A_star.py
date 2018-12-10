@@ -44,8 +44,6 @@ def heuristics(a, b):
     dist_h = (x1-x2) + (y1-y2)
     return abs(dist_h)
 
-
-
 def a_star(plan, start, goal):
     """
           Input:
