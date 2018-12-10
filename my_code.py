@@ -185,6 +185,8 @@ def right_Turn_RLI():
         if diff_W_B > threshold_v:
             mB.run_to_rel_pos(position_sp=98, speed_sp=350)
             mA.run_to_rel_pos(position_sp=-98, speed_sp=350)
+            mB.wait_while("running")  # Wait for the turn to finish
+            mA.wait_while("running")  # Wait for the turn to finish
 
         if sensorRight >= 60 and sensorLeft >= 13 and sensorFront > 56:
             mB.run_to_rel_pos(position_sp=98, speed_sp=350)
